@@ -40,10 +40,7 @@ app.get("/lembretes", (req, res) => {
 })
 
 app.post("/lembretes", (req, res) => {
-  // console.log(req.body)
-  // eval(req.body.code)
-
-  // res.json("ok")
+  console.log(req.body)
 
   const { text } = req.body
 

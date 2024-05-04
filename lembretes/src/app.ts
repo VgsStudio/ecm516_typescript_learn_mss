@@ -1,7 +1,8 @@
 import express from "express"
 
 import axios from "axios"
-import { text } from "stream/consumers"
+import dotenv from "dotenv"
+dotenv.config()
 
 const app = express()
 app.use(express.json())

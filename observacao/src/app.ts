@@ -1,6 +1,9 @@
 import express from "express"
 
 import axios from "axios"
+import dotenv from "dotenv"
+dotenv.config()
+
 const { v4: uuidv4 } = require("uuid")
 
 const app = express()
@@ -20,7 +23,9 @@ const observacoes: Record<string, Observacao> = {
   },
 }
 
-const PORT: number = process.env.PORT ? parseInt(process.env.PORT) : 4001
+const PORT: number = process.env.PORT_OBS
+  ? parseInt(process.env.PORT_OBS)
+  : 5000
 const ENDPOINT_LEMBRETES =
   process.env.ENDPOINT_LEMBRETES || "http://localhost:4000/lembretes"
 

@@ -28,27 +28,39 @@ app.listen(PORT, () => {
   console.log(`Observações: ${PORT}`)
 })
 
-app.get("/lembretes/:id/observacoes", (req, res) => {
+app.get("/lembretes/:id/observacoes", (req, resp) => {
   const { id } = req.params
 
-  axios.get(`${ENDPOINT_LEMBRETES}/${id}`).then((resp) => {
-    console.log(resp.data)
-  })
+  axios
+    .get(`${ENDPOINT_LEMBRETES}/${id}`)
+    .then((res) => {
+      const observacoes_needed = Object.values(observacoes).filter(
+        (observacao) => observacao.lembreteId === id
+      )
 
-  if (!observacoes) {
-    return res.status(404).json({ error: "Lembrete não encontrado" })
-  }
-
-  const observacoes_needed = Object.values(observacoes).filter(
-    (observacao) => observacao.lembreteId === id
-  )
-
-  res.json(observacoes_needed)
+      resp.json(observacoes_needed)
+    })
+    .catch((error) => {
+      resp.status(404).json({ error: "Lembrete não encontrado" })
+    })
 })
 
 app.post("/lembretes/:id/observacoes", (req, resp) => {
   const { id } = req.params
   const { text } = req.body
+
+  axios
+    .get(`${ENDPOINT_LEMBRETES}/${id}`)
+    .then((res) => {
+      const observacoes_needed = Object.values(observacoes).filter(
+        (observacao) => observacao.lembreteId === id
+      )
+
+      resp.json(observacoes_needed)
+    })
+    .catch((error) => {
+      resp.status(404).json({ error: "Lembrete não encontrado" })
+    })
 
   const observacaoId = uuidv4()
 

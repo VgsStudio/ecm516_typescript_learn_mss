@@ -60,6 +60,20 @@ app.post("/lembretes", (req, res) => {
   res.json("Lembrete criado")
 })
 
+app.get("/lembretes/:id", (req, res) => {
+  const { id } = req.params
+
+  const lembrete = lembretes[id]
+
+  if (lembrete == undefined) {
+    res.status(404).json({
+      error: "Lembrete não encontrado",
+    })
+  }
+
+  res.json(lembrete)
+})
+
 app.delete("/lembretes/:id", (req, res) => {
   const { id } = req.params
 

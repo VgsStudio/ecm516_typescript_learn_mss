@@ -20,7 +20,7 @@ const observacoes: Record<string, Observacao> = {
   },
 }
 
-const PORT: number = 4001
+const PORT: number = process.env.PORT ? parseInt(process.env.PORT) : 4001
 
 app.listen(PORT, () => {
   console.log(`Observações: ${PORT}`)

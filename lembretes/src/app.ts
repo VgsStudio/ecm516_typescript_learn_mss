@@ -29,7 +29,7 @@ const lembretes: Record<string, Lembrete> = {
   },
 }
 
-const PORT: number = 4000
+const PORT: number = process.env.PORT ? parseInt(process.env.PORT) : 4000
 
 app.listen(PORT, () => {
   console.log(`Lembretes: ${PORT}`)

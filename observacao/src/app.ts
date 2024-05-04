@@ -31,36 +31,16 @@ app.listen(PORT, () => {
 app.get("/lembretes/:id/observacoes", (req, resp) => {
   const { id } = req.params
 
-  axios
-    .get(`${ENDPOINT_LEMBRETES}/${id}`)
-    .then((res) => {
-      const observacoes_needed = Object.values(observacoes).filter(
-        (observacao) => observacao.lembreteId === id
-      )
+  const observacoes_needed = Object.values(observacoes).filter(
+    (observacao) => observacao.lembreteId === id
+  )
 
-      resp.json(observacoes_needed)
-    })
-    .catch((error) => {
-      resp.status(404).json({ error: "Lembrete não encontrado" })
-    })
+  resp.json(observacoes_needed)
 })
 
 app.post("/lembretes/:id/observacoes", (req, resp) => {
   const { id } = req.params
   const { text } = req.body
-
-  axios
-    .get(`${ENDPOINT_LEMBRETES}/${id}`)
-    .then((res) => {
-      const observacoes_needed = Object.values(observacoes).filter(
-        (observacao) => observacao.lembreteId === id
-      )
-
-      resp.json(observacoes_needed)
-    })
-    .catch((error) => {
-      resp.status(404).json({ error: "Lembrete não encontrado" })
-    })
 
   const observacaoId = uuidv4()
 

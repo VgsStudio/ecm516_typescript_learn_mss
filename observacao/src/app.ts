@@ -21,6 +21,8 @@ const observacoes: Record<string, Observacao> = {
 }
 
 const PORT: number = process.env.PORT ? parseInt(process.env.PORT) : 4001
+const ENDPOINT_LEMBRETES =
+  process.env.ENDPOINT_LEMBRETES || "http://localhost:4000/lembretes"
 
 app.listen(PORT, () => {
   console.log(`Observações: ${PORT}`)
@@ -28,6 +30,14 @@ app.listen(PORT, () => {
 
 app.get("/lembretes/:id/observacoes", (req, res) => {
   const { id } = req.params
+
+  axios.get(`${ENDPOINT_LEMBRETES}/${id}`).then((resp) => {
+    console.log(resp.data)
+  })
+
+  if (!observacoes) {
+    return res.status(404).json({ error: "Lembrete não encontrado" })
+  }
 
   const observacoes_needed = Object.values(observacoes).filter(
     (observacao) => observacao.lembreteId === id
